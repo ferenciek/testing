@@ -18,31 +18,29 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class LoginTest {
     private WebDriver driver;
+    private MainPage mainPage;
+    private LoginPage loginPage;
 
     @Before
     public void setup(){
         System.setProperty("webdriver.chrome.driver", "webdriver/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://www.postcrossing.com/");
+        mainPage = new MainPage(driver);
+        loginPage = mainPage.login();
     }
 
     @Test
     public void testAuthenticationFailureWhenProvidingBadCredentials(){
-        driver.findElement(By.className("button")).click();
-        driver.findElement(By.id("username")).sendKeys("fakeuser");
-        driver.findElement(By.id("password")).sendKeys("fakepassword");
-        driver.findElement(By.xpath("//div[@id='loginContainer']//button")).click();
-
+        loginPage.typeNameAndPassword("fakeuser", "fakepassword");
+        loginPage.login();
         assertTrue(driver.getCurrentUrl().endsWith("login"));
     }
 
     @Test
     public void testAuthenticationSuccessWhenProvidingCorrectCredentials(){
-        driver.findElement(By.className("button")).click();
-        driver.findElement(By.id("username")).sendKeys("kkt");
-        driver.findElement(By.id("password")).sendKeys("29091994");
-        driver.findElement(By.xpath("//div[@id='loginContainer']//button")).click();
-
+        loginPage.typeNameAndPassword("kkt", "29091994");
+        loginPage.login();
         assertFalse(driver.getCurrentUrl().endsWith("login"));
     }
 
