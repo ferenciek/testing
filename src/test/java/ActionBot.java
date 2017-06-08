@@ -19,6 +19,6 @@ public class ActionBot {
     void type(By locator, String text) {
         WebElement element = driver.findElement(locator);
         element.clear();
-        element.sendKeys(text + "\n");
+        element.sendKeys(text );
     }
 }
