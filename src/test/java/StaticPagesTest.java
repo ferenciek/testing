@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.Properties;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Marins on 08.06.2017.
@@ -44,6 +45,17 @@ public class StaticPagesTest {
         driver.get(privacy);
         assertEquals(driver.findElement(By.xpath("//*[@id=\"mainContentArea\"]//h1")).getText(),
                 "Postcrossing Privacy Policy");
+    }
+
+    @Test
+    public void testHistory(){
+        driver.get(about);
+        driver.get(tos);
+        driver.get(privacy);
+        driver.navigate().back();
+        assertTrue(driver.getCurrentUrl().endsWith("tos"));
+        driver.navigate().back();
+        assertTrue(driver.getCurrentUrl().endsWith("about"));
     }
 
     @After
