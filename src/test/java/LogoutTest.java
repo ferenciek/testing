@@ -1,22 +1,18 @@
-
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created by Marina on 6/7/2017.
+ * Created by Marins on 08.06.2017.
  */
-public class LoginTest {
+public class LogoutTest {
     private WebDriver driver;
     private MainPage mainPage;
     private LoginPage loginPage;
@@ -31,17 +27,12 @@ public class LoginTest {
     }
 
     @Test
-    public void testIncorrectLogin(){
-        loginPage.typeNameAndPassword("fakeuser", "fakepassword");
-        loginPage.login();
-        assertTrue(driver.getCurrentUrl().endsWith("login"));
-    }
-
-    @Test
-    public void testCorrectLogin(){
+    public void testLogout(){
         loginPage.typeNameAndPassword("kkt", "29091994");
         loginPage.login();
-        assertFalse(driver.getCurrentUrl().endsWith("login"));
+        loginPage.logout();
+        assertEquals(driver.findElement(By.xpath("//*[@id=\"mainContentArea\"]//h1")).getText(),
+                "What is Postcrossing?");
     }
 
     @After

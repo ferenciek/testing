@@ -15,6 +15,9 @@ public class LoginPage extends PageObject {
     @FindBy(xpath = "//div[@id='loginContainer']//button")
     private WebElement loginButton;
 
+    @FindBy(className = "button-as-link")
+    private WebElement logoutButton;
+
     public LoginPage(WebDriver driver){
         super(driver);
     }
@@ -26,5 +29,9 @@ public class LoginPage extends PageObject {
 
     public void login(){
         loginButton.click();
+    }
+
+    public void logout(){
+        logoutButton.click();
     }
 }
